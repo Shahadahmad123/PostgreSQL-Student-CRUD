@@ -205,35 +205,42 @@ def main_menu():
     while True:
         display_menu()
         
+
         # Taking user input
         user_input = input("Choose an option (1-5) to proceed: ").strip() 
         
+
         if user_input == '1':
             # Print option 1: Display all students (READ operation)
             print("\n--- Listing All Students ---")
             getAllStudents()
-            
+
+
         elif user_input == '2':
-            # Option 2: Add a new student (CREATE operation)
+            # Print option 2: Add a new student (CREATE operation)
             print("\n--- ADD NEW STUDENT RECORD ---")
             try:
-                # Gathering all the needed info
-                f_name = input("First Name: ")
-                l_name = input("Last Name: ")
-                stu_email = input("Email: ")
-                # Important: Date format must be correct for SQL!
+
+                # Gathering all the needed information from the studendt table
+                first_name = input("First Name: ")
+                last_name = input("Last Name: ")
+                student_email = input("Email: ")
+                # !! Date format must be correct for SQL!
                 enroll_date = input("Enrollment Date (YYYY-MM-DD): ") 
                 
-                addStudent(f_name, l_name, stu_email, enroll_date)
+                addStudent(first_name, last_name, student_email, enroll_date)
             except Exception:
-                # General catch for issues like hitting Ctrl+C or weird inputs
+                # General catch for issues like hitting Ctrl+C or weird unexpected inputs
                 print("\nError gathering student details. Please try again.")
-            
+
+
+
+
         elif user_input == '3':
-            # Option 3: Update an existing student's email (UPDATE operation)
+            # Print option 3: Update an existing student's email (UPDATE operation)
             print("\n--- UPDATE STUDENT EMAIL ---")
             try:
-                # Show existing IDs before asking for one
+                # Show existing IDs before asking for one, so displays the table for the user to be able to see the IDs before choosing one to update
                 getAllStudents() 
                 target_id = int(input("Enter Student ID to modify: "))
                 new_mail = input("Enter NEW Email Address: ")
@@ -244,22 +251,27 @@ def main_menu():
             except Exception as err:
                 # Catch other potential database or input issues
                 print(f"Update failed due to an error: {err}")
-                
+
+
+
+
         elif user_input == '4':
-            # Option 4: Delete a student record (DELETE operation)
+            # Print option 4: Delete a student record (DELETE operation)
             print("\n--- DELETE STUDENT RECORD ---")
             try:
-                # Show list for convenience
+                # Show list for convenience, again displays the table for the user to be able to view the IDs before deciding which one to delete
                 getAllStudents() 
                 target_id = int(input("Enter Student ID to delete: "))
                 
                 deleteStudent(target_id)
             except ValueError:
                 print("Input error! ID must be a whole number.")
-                
+
+
+
         elif user_input == '5':
-            # Option 5: Exit the application gracefully
-            print("\nExiting application. Have a good one!")
+            # Print option 5: Exit the application gracefully
+            print("\nExiting application Now. Bye BYEE!:)")
             break
             
         else:
@@ -271,110 +283,3 @@ if __name__ == '__main__':
     main_menu()
 
 
-# def main_menu():
-#     """Runs the main application loop, prompting the user for action."""
-#     while True:
-#         display_menu()
-#         choice = input("Enter your choice (1-5): ").strip()
-        
-#         if choice == '1':
-#             # READ: Get All Students
-#             getAllStudents()
-            
-#         elif choice == '2':
-#             # CREATE: Add New Student
-#             print("\n--- ADD NEW STUDENT ---")
-#             try:
-#                 first_name = input("Enter First Name: ")
-#                 last_name = input("Enter Last Name: ")
-#                 email = input("Enter Email: ")
-#                 enrollment_date = input("Enter Enrollment Date (YYYY-MM-DD): ")
-#                 addStudent(first_name, last_name, email, enrollment_date)
-#             except Exception as e:
-#                 print(f"Invalid input. Please check the date format or try again.")
-            
-#         elif choice == '3':
-#             # UPDATE: Update Student Email
-#             print("\n--- UPDATE STUDENT EMAIL ---")
-#             try:
-#                 # Always show current students first to help the user know which ID to choose
-#                 getAllStudents() 
-#                 student_id = int(input("Enter Student ID to update: "))
-#                 new_email = input("Enter New Email Address: ")
-#                 updateStudentEmail(student_id, new_email)
-#             except ValueError:
-#                 print("Invalid input. Student ID must be a number.")
-#             except Exception as e:
-#                 print(f"An error occurred: {e}")
-                
-#         elif choice == '4':
-#             # DELETE: Delete Student
-#             print("\n--- DELETE STUDENT ---")
-#             try:
-#                 # Always show current students first to help the user choose ID
-#                 getAllStudents() 
-#                 student_id = int(input("Enter Student ID to delete: "))
-#                 deleteStudent(student_id)
-#             except ValueError:
-#                 print("Invalid input. Student ID must be a number.")
-                
-#         elif choice == '5':
-#             # EXIT
-#             print("Exiting application. Goodbye!")
-#             break
-            
-#         else:
-#             print("Invalid choice. Please enter a number between 1 and 5.")
-
-
-
-
-# if __name__ == '__main__':
-#     main_menu()
-
-
-
-
-
-
-
-
-# # TEST
-# if __name__ == '__main__':
-
-#     # # --- 1. Initial Read ---
-#     # print("--- 1. Testing Read (Initial Records) ---")
-#     # getAllStudents()
-    
-#     # # --- 2. Create Test ---
-#     # print("\n--- 2. Testing Create (Adding a New Student) ---")
-#     # new_first = "Alice"
-#     # new_last = "Wonder"
-#     # new_email = "alice.wonder@example.com"
-#     # new_date = "2024-05-15" 
-#     # addStudent(new_first, new_last, new_email, new_date)
-    
-#     # # --- 3. Read After Create ---
-#     # print("\n--- 3. Testing Read (After Adding Alice) ---")
-#     # getAllStudents()
-
-#     # # --- 4. Update Test (Updating John Doe's email - ID 1) ---
-#     # print("\n--- 4. Testing Update (Changing John Doe's email) ---")
-#     # john_id = 1
-#     # new_john_email = "john.doe.updated@university.edu"
-#     # updateStudentEmail(john_id, new_john_email)
-    
-#     # # --- 5. Read After Update ---
-#     # print("\n--- 5. Testing Read (After Updating John Doe) ---")
-#     # getAllStudents()
-
-#     # --- 6. Delete Test (Deleting Alice Wonder - ID 4) ---
-#     # print("\n--- 6. Testing Delete (Removing Alice Wonder) ---")
-#     # alice_id = 4 
-#     # deleteStudent(alice_id)
-    
-#     # # --- 7. Final Read After Delete ---
-#     # print("\n--- 7. Testing Read (Final check, should be 3 records) ---")
-#     # getAllStudents()
-
-#     print("\nTest complete.")
