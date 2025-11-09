@@ -1,3 +1,6 @@
+# Student name: Shahad Ahmad
+# Student ID: 101242144
+
 import psycopg2
 from psycopg2 import sql
 
@@ -281,5 +284,6 @@ def main_menu():
 # The application starts here!
 if __name__ == '__main__':
     main_menu()
+
 
 
