@@ -1,8 +1,10 @@
-# Student name: Shahad Ahmad
+# Student Name: Shahad Ahmad
 # Student ID: 101242144
+
 
 import psycopg2
 from psycopg2 import sql
+
 
 # CONFIGURATION 
 # Database login details
@@ -25,13 +27,17 @@ def connect_to_db():
         )
         return conn
     except psycopg2.Error as e:
+
         # Print a message if connection fails. For example wrong password, database down, wrong database name) 
         print(f"Error connecting to database. Check credentials, host, and port.")
+
         print(f"PostgreSQL Error Details: {e}")
+
         return None
 
 
-# READ ALL FUNCTION
+
+# READ ALL FUNCTION (the display of data)
 def getAllStudents():
     # Displays all student records from the database. (the 'READ' part of CURD)
     conn = connect_to_db()
@@ -54,7 +60,7 @@ def getAllStudents():
             print(f"{'ID' :<4} | {'First Name':<15} | {'Last Name' : <15} | {'Email' :<30} | {'Enrollment Date' :<15} ")
             print("-" * 80)
             for student in students:
-                # Formatting each row. student 
+                # Formatting each row neatly to look clean.
                 print(f"{student[0]:<4} | {student[1]:<15} | {student[2]:<15} | {student[3]:<30} | {student[4].strftime('%Y-%m-%d'):<15}")
         else:
             print("No students found in the table.")
@@ -67,8 +73,9 @@ def getAllStudents():
         if conn:
             conn.close()  # Always close the connection when finished
 
-        
-# CREATE FUNCTION
+
+
+# CREATE FUNCTION (the add)
 def addStudent(first_name, last_name, email, enrollment_date):
     # Inserts a new student record into the students table, so 'ADD'
     conn = connect_to_db()
@@ -108,7 +115,8 @@ def addStudent(first_name, last_name, email, enrollment_date):
        
 
 
-# UPDATE FUNCTION
+
+# UPDATE FUNCTION (just updates the email)
 def updateStudentEmail(student_id, new_email):
     # Updates the email address for a student with the specified ID when inserted
     conn = connect_to_db()
@@ -185,7 +193,7 @@ def deleteStudent(student_id):
 
 
 
-# User frinedly interactive interface
+# User frinedly interactive interface for each CRUD operation
 
 def display_menu():
 
@@ -281,9 +289,8 @@ def main_menu():
             # Catching invalid menu inputs
             print(f"'{user_input}' isn't a valid option. Enter a number between 1 and 5.")
 
-# The application starts here!
+
 if __name__ == '__main__':
     main_menu()
-
 
 
